@@ -9,11 +9,16 @@ import java.time.LocalDateTime;
 
 
 public class Order {
+    public long ID;
     public long clientId;
-    public String name;
-    public String adress;
+    public String clientName;
+    public String address;
+    public long postalCode;
+    public String postalTown;
     public long orderId;
-    public int weight;
+    public long weight;
+    //public LocalDateTime deliveryTime;  Utkommenterad tills jag får datetime att fungera i sqlite, ersätts av String tillsvidare
+    public String deliveryTime;
     public boolean delivered;
-    public LocalDateTime deliveryTime;
+
 }
