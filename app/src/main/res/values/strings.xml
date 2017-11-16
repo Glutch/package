@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Package</string>
+    <string name="phonenumber">Servers phonenumber</string>
 </resources>
