@@ -17,8 +17,9 @@ public class Order {
     public String postalTown;
     public long orderId;
     public long weight;
-    //public LocalDateTime deliveryTime;  Utkommenterad tills jag får datetime att fungera i sqlite, ersätts av String tillsvidare
+    public long prize;
     public String deliveryTime;
     public boolean delivered;
+
 
 }
