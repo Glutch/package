@@ -5,14 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.FontsContract;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Tjoffex on 13/11/17.
+ *
  *
  */
 
@@ -35,6 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "postalTown TEXT," +
                 "orderId INTEGER," +
                 "weight INTEGER," +
+                "prize INTEGER," +
                 "deliveryTime TEXT," +
                 "delivered INTEGER DEFAULT 0)";
 
@@ -43,6 +45,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    //Todo make a functional override of onUpgrade to anticipate db-changes when app in use
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
@@ -59,7 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param deliveryTime -
      * @param delivered -
      */
-    public void addOrder(long clientID, String clientName, String address, long postalCode, String postalTown, long orderId, long weight, String deliveryTime, boolean delivered){
+    public void addOrder(long clientID, String clientName, String address, long postalCode, String postalTown, long orderId, long weight, long prize, String deliveryTime, boolean delivered){
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -87,11 +90,17 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param order -
      */
     public void addOrder(Order order){
-        addOrder(order.clientId, order.clientName, order.address, order.postalCode, order.postalTown, order.orderId, order.weight, order.deliveryTime, order.delivered);
+        addOrder(order.clientId, order.clientName, order.address, order.postalCode, order.postalTown, order.orderId, order.weight, order.prize, order.deliveryTime, order.delivered);
     }
 
-    //Todo finish method addMultiple orders
+    /**
+     * Adds a list of orders
+     * @param orderList
+     */
     public void addMultipleOrders(List<Order> orderList){
+        for(Order order : orderList){
+            addOrder(order);
+        }
 
     }
 
@@ -132,18 +141,47 @@ public class DBHelper extends SQLiteOpenHelper {
             order.postalTown = c.getString(5);
             order.orderId = c.getLong(6);
             order.weight = c.getLong(7);
-            order.deliveryTime = c.getString(8);
-            int delivered = c.getInt(9);
+            order.prize =c.getLong(8);
+            order.deliveryTime = c.getString(9);
+            int delivered = c.getInt(10);
             order.delivered = (delivered == 1);
 
             orderList.add(order);
-            Log.d("DB-test", "getAllOrders: " + order.ID + ", " + order.clientId + ", " + order.address + ", " + order.postalCode + ", " + order.postalTown + ", " + order.orderId + ", " + order.weight + ", " + order.deliveryTime + ", " + order.delivered);
+            Log.d("DB-test", "getAllOrders: " + order.ID + ", " + order.clientId + ", " + order.address + ", " + order.postalCode + ", " + order.postalTown + ", " + order.orderId + ", " + order.weight + ", " + order.prize+ ", " + order.deliveryTime + ", " + order.delivered);
 
         }while(c.moveToNext());
 
         db.close();
         c.close();
         return orderList;
+
+    }
+
+    /**
+     * Marks an order as delivered
+     * @param order -
+     */
+    public void markAsDelivered(Order order){
+        order.delivered = true;
+        order.deliveryTime = DateFormat.getDateInstance().toString();
+
+    }
+
+    /**
+     * marks all orders on list as delivered
+     * @param orderList -
+     */
+    public void markListAsDelivered(List<Order> orderList){
+        for(Order order : orderList){
+            markAsDelivered(order);
+        }
+    }
+
+    //used to reset the database during dev to avoid version handling the database
+    public void resetTheMF(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DROP TABLE Orders");
+        onCreate(db);
 
     }
 
