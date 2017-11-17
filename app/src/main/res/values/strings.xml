@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Package</string>
     <string name="phonenumber">Servers phonenumber</string>
+    <string name="generate_orders">Orders to generate</string>
+    <string name="summery_number">The number to sms delivered orders to</string>
+    <string name="summery_generate_orders">Amount of orders to generate</string>
 </resources>

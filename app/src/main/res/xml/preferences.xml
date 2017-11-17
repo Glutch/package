@@ -3,5 +3,14 @@
     <EditTextPreference
         android:key="number_key"
         android:title="@string/phonenumber"
-        android:defaultValue="00000000"/>
+        android:defaultValue="0"
+        android:summary="@string/summery_number"
+        android:phoneNumber="true"/>
+
+    <com.apackage.app.apackage.settings.intPickerPref
+        android:key="order_key"
+        android:title="@string/generate_orders"
+        android:dialogTitle="@string/generate_orders"
+        android:summary="@string/summery_generate_orders"
+        />
 </PreferenceScreen>
