@@ -16,7 +16,14 @@ public class RandFakeOrder {
 
     private static Random rand = new Random();
 
-    public static ArrayList<Order> randomOrd(int amountOforders, String[] names, String[] adresser, String[] cities) {
+    public static ArrayList<Order> randomOrd(int amountOforders) {
+
+        String[] streets = {"Adventvagen", "Aftongatan", "Ahrenbergsgatan", "AdolfEdelsvardsgatan", "AdlerSalviusgatan",
+                "Alevägen", "Alelundsgatan", "Alelyckegatan", "AlbertEngstrumgatan", "Albotorget", "Aprilgatan", "Arbetsgatan"};
+        String[] names = {"Kalle","Anna","Viktor","Max","Tobia","David","Daniel","Fredrik","Markus","Rickard","Sebastian",
+                "Hanna"};
+        String[] cities = {"Göteborg","Borås","Falkenberg","Malmö","Stockholm","Uppsala","Visby","Lund","Jönköping"
+                ,"Gävle","Norrköping","Västerås"};
 
         ArrayList<Order> orderlist = new ArrayList<Order>();
 
@@ -30,7 +37,7 @@ public class RandFakeOrder {
 
         order.deliveryTime = currentDate.format(addedDate).toString();
 
-        order.address = adresser[rand.nextInt(adresser.length)];
+        order.address = streets[rand.nextInt(streets.length)];
         order.postalTown = names[rand.nextInt(cities.length)];
         order.postalCode = rand.nextInt(99999);
         order.clientName = names[rand.nextInt(names.length)];
