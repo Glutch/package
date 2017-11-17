@@ -17,5 +17,6 @@ public final class gpsTracker {
     public static void setLastLocation(Location lastLocation) {
         Log.d("GpsTracker", String.format("LastLocation: %f, %f", lastLocation.getLatitude(), lastLocation.getLongitude()));
         gpsTracker.lastLocation = lastLocation;
+
     }
 }
