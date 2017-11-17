@@ -7,11 +7,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-
 import com.apackage.app.apackage.database.DBHelper;
 import com.apackage.app.apackage.database.Order;
 import com.apackage.app.apackage.settings.SettingsActivity;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     int number = sharedPreferences.getInt(SettingsActivity.KEY_GENERATEORDERS, -1);
     TextView textView = (TextView) findViewById(R.id.mainTextView);
     textView.setText("" + number);
+
   }
 
   //en metod för att testa databasfunktionalitet, ska ej vara kvar i slutprodukt
