@@ -157,6 +157,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
     /**
      * Marks an order as delivered
      * @param order -
@@ -176,6 +177,28 @@ public class DBHelper extends SQLiteOpenHelper {
             markAsDelivered(order);
         }
     }
+
+    /**
+     * Get orders Delivered or not
+     * @param isDelivered 1=true, 0=false
+     * @return a List of orders from database.
+     */
+    public List<Order> getOrdersDelivered(int isDelivered){
+        String selection = "delivered="+isDelivered;
+        return getSpecificOrders(null,selection,null,null,null,"orderID ASC");
+    }
+
+    /**
+     * Get order by orderID
+     * @param orderID specifik order id.
+     * @return one order.
+     */
+    public Order getByOrderId(int orderID){
+        String selection = "orderID="+orderID;
+        return getSpecificOrders(null,selection,null,null,null,null).get(0);
+    }
+
+
 
     //used to reset the database during dev to avoid version handling the database
     public void resetTheMF(){
