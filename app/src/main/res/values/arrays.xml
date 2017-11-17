@@ -1,47 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="fadresser">
-        <item>Adventvagen</item>
-        <item>Aftongatan</item>
-        <item>Ahrenbergsgatan</item>
-        <item>AdolfEdelsvardsgatan</item>
-        <item>AdlerSalviusgatan</item>
-        <item>Alevägen</item>
-        <item>Alelundsgatan</item>
-        <item>Alelyckegatan</item>
-        <item>AlbertEngstrumgatan</item>
-        <item>Albotorget</item>
-        <item>Aprilgatan</item>
-        <item>Arbetsgatan</item>
-    </string-array>
 
-    <string-array name="fnames">
-        <item>Kalle</item>
-        <item>Anna</item>
-        <item>Viktor</item>
-        <item>Max</item>
-        <item>Tobias</item>
-        <item>Davis</item>
-        <item>Daniel</item>
-        <item>Fredrik</item>
-        <item>Markus</item>
-        <item>Rickard</item>
-        <item>Sebastian</item>
-        <item>Hanna</item>
-    </string-array>
-    <string-array name="fcities">
-        <item>Göteborg</item>
-        <item>Borås</item>
-        <item>Falkenberg</item>
-        <item>Malmö</item>
-        <item>Stockholm</item>
-        <item>Uppsala</item>
-        <item>Visby</item>
-        <item>Lund</item>
-        <item>Jönköping</item>
-        <item>Gävle</item>
-        <item>Norrköping</item>
-        <item>Västerås</item>
-    </string-array>
 
 </resources>
