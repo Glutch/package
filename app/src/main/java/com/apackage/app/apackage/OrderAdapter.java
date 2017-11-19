@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.apackage.app.apackage.database.Order;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
+import java.util.List;
 
 /**
  * Created by mrx on 2017-11-19.
@@ -19,28 +19,28 @@ import java.util.zip.Inflater;
 public class OrderAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<Order> orderArrayList;
+    private List<Order> orderList;
     private LayoutInflater inflater;
 
-    public OrderAdapter(Context context, ArrayList<Order> orderArrayList){
-        this.orderArrayList = orderArrayList;
+    public OrderAdapter(Context context, List<Order> orderList){
+        this.orderList = orderList;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return orderArrayList.size();
+        return orderList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return orderArrayList.get(position);
+        return orderList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return orderArrayList.get(position).ID;
+        return orderList.get(position).ID;
     }
 
     @Override
@@ -53,8 +53,8 @@ public class OrderAdapter extends BaseAdapter {
 
         TextView textOrderId = view.findViewById(R.id.textOrderId);
         TextView textOrderDate = view.findViewById(R.id.textOrderDate);
-        textOrderId.setText(""+orderArrayList.get(position).clientId);
-        textOrderDate.setText(orderArrayList.get(position).deliveryTime);
+        textOrderId.setText(""+ orderList.get(position).clientId);
+        textOrderDate.setText(orderList.get(position).deliveryTime);
 
         return view;
     }
