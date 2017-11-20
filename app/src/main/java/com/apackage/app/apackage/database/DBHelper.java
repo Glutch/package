@@ -194,7 +194,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return one order.
      */
     public Order getByOrderId(int orderID){
-        String selection = "orderID="+orderID;
+        String selection = "id="+orderID;
         return getSpecificOrders(null,selection,null,null,null,null).get(0);
     }
 
