@@ -9,11 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.apackage.app.apackage.database.DBHelper;
+import com.apackage.app.apackage.database.Order;
 import com.apackage.app.apackage.settings.SettingsActivity;
 
+import java.util.List;
 import java.util.zip.Inflater;
 
 public class viewOrders extends AppCompatActivity {
@@ -21,6 +24,7 @@ public class viewOrders extends AppCompatActivity {
   private DBHelper dbHelper;
   private ListView listView;
   private OrderAdapter orderAdapter;
+  private List<Order> orderList;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +37,18 @@ public class viewOrders extends AppCompatActivity {
     listView = findViewById(R.id.listView);
     dbHelper = new DBHelper(this);
 
-    orderAdapter = new OrderAdapter(this, dbHelper.getOrdersDelivered(0));
+    orderList = dbHelper.getOrdersDelivered(0);
+
+    orderAdapter = new OrderAdapter(this, orderList);
     listView.setAdapter(orderAdapter);
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(view.getContext(), viewSpecificOrder.class);
+        intent.putExtra("ID", orderList.get(position).ID);
+        startActivity(intent);
+      }
+    });
   }
 
   @Override
