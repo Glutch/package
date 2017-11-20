@@ -58,4 +58,8 @@ public class OrderAdapter extends BaseAdapter {
 
         return view;
     }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 }

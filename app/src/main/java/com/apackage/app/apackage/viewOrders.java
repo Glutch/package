@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 
 import com.apackage.app.apackage.database.DBHelper;
@@ -18,7 +19,8 @@ import java.util.zip.Inflater;
 public class viewOrders extends AppCompatActivity {
 
   private DBHelper dbHelper;
-  ListView listView;
+  private ListView listView;
+  private OrderAdapter orderAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class viewOrders extends AppCompatActivity {
     listView = findViewById(R.id.listView);
     dbHelper = new DBHelper(this);
 
-    OrderAdapter orderAdapter = new OrderAdapter(this, dbHelper.getOrdersDelivered(0));
+    orderAdapter = new OrderAdapter(this, dbHelper.getOrdersDelivered(0));
     listView.setAdapter(orderAdapter);
   }
 
@@ -55,4 +57,15 @@ public class viewOrders extends AppCompatActivity {
     }
     return super.onOptionsItemSelected(item);
   }
+
+  public void onClickOrders(View view){
+    orderAdapter.setOrderList(dbHelper.getOrdersDelivered(0));
+    listView.setAdapter(orderAdapter);
+  }
+
+  public void onClickHistory(View view){
+    orderAdapter.setOrderList(dbHelper.getOrdersDelivered(1));
+    listView.setAdapter(orderAdapter);
+  }
+
 }
