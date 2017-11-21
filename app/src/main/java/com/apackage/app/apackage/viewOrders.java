@@ -24,7 +24,6 @@ public class viewOrders extends AppCompatActivity {
   private DBHelper dbHelper;
   private ListView listView;
   private OrderAdapter orderAdapter;
-  private List<Order> orderList;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +36,13 @@ public class viewOrders extends AppCompatActivity {
     listView = findViewById(R.id.listView);
     dbHelper = new DBHelper(this);
 
-    orderList = dbHelper.getOrdersDelivered(0);
-
-    orderAdapter = new OrderAdapter(this, orderList);
+    orderAdapter = new OrderAdapter(this, dbHelper.getOrdersDelivered(0));
     listView.setAdapter(orderAdapter);
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(view.getContext(), viewSpecificOrder.class);
-        intent.putExtra("ID", orderList.get(position).ID);
+        intent.putExtra("ID", orderAdapter.getItemId(position));
         startActivity(intent);
       }
     });
@@ -61,6 +58,7 @@ public class viewOrders extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()){
       case R.id.generateOrders:
+        dbHelper.resetTheMF();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int amount = sharedPreferences.getInt(SettingsActivity.KEY_GENERATEORDERS, 1);
         dbHelper.addMultipleOrders(RandFakeOrder.randomOrd(amount));
@@ -73,15 +71,13 @@ public class viewOrders extends AppCompatActivity {
   }
 
   public void onClickOrders(View view){
-    orderList = dbHelper.getOrdersDelivered(0);
-    orderAdapter.setOrderList(orderList);
-    listView.setAdapter(orderAdapter);
+    orderAdapter.setOrderList(dbHelper.getOrdersDelivered(0));
+    orderAdapter.notifyDataSetChanged();
   }
 
   public void onClickHistory(View view){
-    orderList = dbHelper.getOrdersDelivered(1);
-    orderAdapter.setOrderList(orderList);
-    listView.setAdapter(orderAdapter);
+    orderAdapter.setOrderList(dbHelper.getOrdersDelivered(1));
+    orderAdapter.notifyDataSetChanged();
   }
 
 }
