@@ -163,9 +163,14 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param order -
      */
     public void markAsDelivered(Order order){
-        order.delivered = true;
-        order.deliveryTime = DateFormat.getDateInstance().toString();
+        String deliveryTime = DateFormat.getDateInstance().toString();
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("delivered", 1);
+        //contentValues.put("???", deliveryTime);
 
+        db.update("Orders", contentValues, "id=?", new String[] {""+ order.ID});
+        db.close();
     }
 
     /**

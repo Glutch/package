@@ -3,6 +3,7 @@ package com.apackage.app.apackage;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.apackage.app.apackage.database.DBHelper;
@@ -22,6 +23,7 @@ public class viewSpecificOrder extends AppCompatActivity {
   private TextView deliverydate;
   private TextView deliverystatus;
   private Order order;
+  private DBHelper dbHelper;
 
 
   @Override
@@ -32,8 +34,8 @@ public class viewSpecificOrder extends AppCompatActivity {
     Intent intent = getIntent();
     long id = intent.getLongExtra("ID", -1);
 
-    DBHelper dbHelper = new DBHelper(this);
-    Order order = dbHelper.getByOrderId((int)id);
+    dbHelper = new DBHelper(this);
+    order = dbHelper.getByOrderId((int)id);
 
     ordernumber = findViewById(R.id.ordernumber);
     ordernumber.setText(""+order.orderId);
@@ -53,5 +55,10 @@ public class viewSpecificOrder extends AppCompatActivity {
     deliverydate.setText(order.deliveryTime);
     deliverystatus = findViewById(R.id.deliverystatus);
     deliverystatus.setText(""+order.delivered);
+  }
+
+  public void onClickDelivered(View view) {
+    dbHelper.markAsDelivered(order);
+
   }
 }
