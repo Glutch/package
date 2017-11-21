@@ -38,7 +38,7 @@ public class RandFakeOrder {
         order.deliveryTime = currentDate.format(addedDate).toString();
 
         order.address = streets[rand.nextInt(streets.length)];
-        order.postalTown = names[rand.nextInt(cities.length)];
+        order.postalTown = cities[rand.nextInt(cities.length)];
         order.postalCode = rand.nextInt(99999);
         order.clientName = names[rand.nextInt(names.length)];
         order.clientId = rand.nextInt(99999);

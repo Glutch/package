@@ -73,12 +73,14 @@ public class viewOrders extends AppCompatActivity {
   }
 
   public void onClickOrders(View view){
-    orderAdapter.setOrderList(dbHelper.getOrdersDelivered(0));
+    orderList = dbHelper.getOrdersDelivered(0);
+    orderAdapter.setOrderList(orderList);
     listView.setAdapter(orderAdapter);
   }
 
   public void onClickHistory(View view){
-    orderAdapter.setOrderList(dbHelper.getOrdersDelivered(1));
+    orderList = dbHelper.getOrdersDelivered(1);
+    orderAdapter.setOrderList(orderList);
     listView.setAdapter(orderAdapter);
   }
 
