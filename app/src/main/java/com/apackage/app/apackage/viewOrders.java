@@ -43,7 +43,8 @@ public class viewOrders extends AppCompatActivity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(view.getContext(), viewSpecificOrder.class);
         intent.putExtra("ID", orderAdapter.getItemId(position));
-        startActivity(intent);
+        intent.putExtra("POSITION", position);
+        startActivityForResult(intent, 1);
       }
     });
   }
@@ -80,4 +81,11 @@ public class viewOrders extends AppCompatActivity {
     orderAdapter.notifyDataSetChanged();
   }
 
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == 1 && resultCode == RESULT_OK){
+      orderAdapter.removeOrder((Order) orderAdapter.getItem(data.getIntExtra("POSITION", -1)));
+    }
+
+  }
 }

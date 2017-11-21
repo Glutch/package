@@ -62,4 +62,9 @@ public class OrderAdapter extends BaseAdapter {
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
     }
+
+    public void removeOrder(Order order) {
+        orderList.remove(order);
+        notifyDataSetChanged();
+    }
 }

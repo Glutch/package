@@ -59,6 +59,8 @@ public class viewSpecificOrder extends AppCompatActivity {
 
   public void onClickDelivered(View view) {
     dbHelper.markAsDelivered(order);
-
+    Intent intent = getIntent();
+    setResult(RESULT_OK , intent);
+    finish();
   }
 }
