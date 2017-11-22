@@ -90,7 +90,8 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param order -
      */
     public void addOrder(Order order){
-        addOrder(order.clientId, order.clientName, order.address, order.postalCode, order.postalTown, order.orderId, order.weight, order.prize, order.deliveryTime, order.delivered);
+        addOrder(order.clientId, order.clientName, order.address, order.postalCode, order.postalTown,
+                order.orderId, order.weight, order.prize, order.deliveryTime, order.delivered);
     }
 
     /**

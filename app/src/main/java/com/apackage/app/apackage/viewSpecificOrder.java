@@ -1,15 +1,13 @@
 package com.apackage.app.apackage;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.apackage.app.apackage.database.DBHelper;
 import com.apackage.app.apackage.database.Order;
-
-import java.util.List;
 
 public class viewSpecificOrder extends AppCompatActivity {
 
@@ -42,7 +40,7 @@ public class viewSpecificOrder extends AppCompatActivity {
     firstname = findViewById(R.id.firstname);
     firstname.setText(order.clientName);
     lastname = findViewById(R.id.lastname);
-    lastname.setText("?????" );
+    lastname.setText("?????" ); // todo fix last name?
     address = findViewById(R.id.address);
     address.setText(order.address);
     postcode = findViewById(R.id.postcode);

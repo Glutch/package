@@ -24,6 +24,8 @@ public class RandFakeOrder {
                 "Hanna"};
         String[] cities = {"Göteborg","Borås","Falkenberg","Malmö","Stockholm","Uppsala","Visby","Lund","Jönköping"
                 ,"Gävle","Norrköping","Västerås"};
+        String[] lastnames = {"Eriksson","Johansson"};
+
 
         ArrayList<Order> orderlist = new ArrayList<Order>();
 
@@ -41,6 +43,7 @@ public class RandFakeOrder {
         order.postalTown = cities[rand.nextInt(cities.length)];
         order.postalCode = rand.nextInt(99999);
         order.clientName = names[rand.nextInt(names.length)];
+        order.clientLastname = lastnames[rand.nextInt(lastnames.length)];  // last name
         order.clientId = rand.nextInt(99999);
         order.weight = (long) rand.nextInt(999999);
         order.orderId = rand.nextInt(40000);
