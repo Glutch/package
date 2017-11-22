@@ -73,12 +73,10 @@ public class viewOrders extends AppCompatActivity {
 
   public void onClickOrders(View view){
     orderAdapter.setOrderList(dbHelper.getOrdersDelivered(0));
-    orderAdapter.notifyDataSetChanged();
   }
 
   public void onClickHistory(View view){
     orderAdapter.setOrderList(dbHelper.getOrdersDelivered(1));
-    orderAdapter.notifyDataSetChanged();
   }
 
   @Override
