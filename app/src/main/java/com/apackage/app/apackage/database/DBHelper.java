@@ -73,6 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("postalTown", postalTown);
         contentValues.put("orderID", orderId);
         contentValues.put("weight", weight);
+        contentValues.put("prize", prize);
         contentValues.put("deliveryTime", deliveryTime);
         if(delivered){
             contentValues.put("delivered", 1);
@@ -168,7 +169,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("delivered", 1);
-        //contentValues.put("???", deliveryTime);
+        //todo contentValues.put("???", deliveryTime);
 
         db.update("Orders", contentValues, "id=?", new String[] {""+ order.ID});
         db.close();

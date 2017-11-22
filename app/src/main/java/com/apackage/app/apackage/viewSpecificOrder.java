@@ -11,6 +11,7 @@ import com.apackage.app.apackage.database.Order;
 
 public class viewSpecificOrder extends AppCompatActivity {
 
+  private TextView clientID;
   private TextView ordernumber;
   private TextView firstname;
   private TextView lastname;
@@ -18,6 +19,7 @@ public class viewSpecificOrder extends AppCompatActivity {
   private TextView postcode;
   private TextView city;
   private TextView weight;
+  private TextView price;
   private TextView deliverydate;
   private TextView deliverystatus;
   private Order order;
@@ -35,6 +37,8 @@ public class viewSpecificOrder extends AppCompatActivity {
     dbHelper = new DBHelper(this);
     order = dbHelper.getByOrderId((int)id);
 
+    clientID = findViewById(R.id.clientID);
+    clientID.setText(""+order.prize);
     ordernumber = findViewById(R.id.ordernumber);
     ordernumber.setText(""+order.orderId);
     firstname = findViewById(R.id.firstname);
@@ -49,6 +53,8 @@ public class viewSpecificOrder extends AppCompatActivity {
     city.setText(order.postalTown);
     weight = findViewById(R.id.weight);
     weight.setText(""+order.weight);
+    price = findViewById(R.id.price);
+    price.setText(""+order.prize);
     deliverydate = findViewById(R.id.deliverydate);
     deliverydate.setText(order.deliveryTime);
     deliverystatus = findViewById(R.id.deliverystatus);
@@ -57,6 +63,8 @@ public class viewSpecificOrder extends AppCompatActivity {
 
   public void onClickDelivered(View view) {
     dbHelper.markAsDelivered(order);
-
+    Intent intent = getIntent();
+    setResult(RESULT_OK , intent);
+    finish();
   }
 }
