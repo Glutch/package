@@ -24,6 +24,7 @@ public class viewOrders extends AppCompatActivity {
   private DBHelper dbHelper;
   private ListView listView;
   private OrderAdapter orderAdapter;
+  private boolean onOrder;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class viewOrders extends AppCompatActivity {
 
     Toolbar toolbar = findViewById(R.id.toolbar2);
     setSupportActionBar(toolbar);
+
+    onOrder = true;
 
     listView = findViewById(R.id.listView);
     dbHelper = new DBHelper(this);
@@ -59,10 +62,11 @@ public class viewOrders extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()){
       case R.id.generateOrders:
-        dbHelper.resetTheMF();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int amount = sharedPreferences.getInt(SettingsActivity.KEY_GENERATEORDERS, 1);
         dbHelper.addMultipleOrders(RandFakeOrder.randomOrd(amount));
+        if (onOrder)
+          onClickOrders(findViewById(R.id.ordersBtn));
         break;
       case R.id.preferences:
         Intent intent = new Intent(this, SettingsActivity.class);
@@ -73,10 +77,12 @@ public class viewOrders extends AppCompatActivity {
 
   public void onClickOrders(View view){
     orderAdapter.setOrderList(dbHelper.getOrdersDelivered(0));
+    onOrder = true;
   }
 
   public void onClickHistory(View view){
     orderAdapter.setOrderList(dbHelper.getOrdersDelivered(1));
+    onOrder = false;
   }
 
   @Override

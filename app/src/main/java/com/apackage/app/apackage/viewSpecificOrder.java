@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.apackage.app.apackage.database.DBHelper;
@@ -24,6 +25,7 @@ public class viewSpecificOrder extends AppCompatActivity {
   private TextView deliverystatus;
   private Order order;
   private DBHelper dbHelper;
+  private Button deliveredBtn;
 
 
   @Override
@@ -59,6 +61,9 @@ public class viewSpecificOrder extends AppCompatActivity {
     deliverydate.setText(order.deliveryTime);
     deliverystatus = findViewById(R.id.deliverystatus);
     deliverystatus.setText(""+order.delivered);
+    deliveredBtn = findViewById(R.id.button2);
+    if (order.delivered)
+      deliveredBtn.setVisibility(View.GONE);
   }
 
   public void onClickDelivered(View view) {
