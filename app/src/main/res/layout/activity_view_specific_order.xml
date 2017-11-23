@@ -249,7 +249,9 @@
             tools:layout_editor_absoluteY="394dp"
             android:layout_gravity="bottom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2"/>
+            app:layout_constraintTop_toBottomOf="@+id/button2"
+            tools:context="com.example.mapwithmarker.MapsMarkerActivity"
+            xmlns:tools="http://schemas.android.com/tools"/>
 
 
 </android.support.constraint.ConstraintLayout>
