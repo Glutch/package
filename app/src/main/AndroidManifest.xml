@@ -2,8 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.apackage.app.apackage">
 
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <application
         android:allowBackup="true"
@@ -12,7 +19,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.vision"
+            android:value="@integer/google_play_services_version">
+
+        </meta-data>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/YOUR_API_KEY">
+
+        </meta-data>
+
+        <activity android:name=".MainActivity">
+
+        </activity>
         <activity android:name=".viewOrders">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +44,8 @@
         </activity>
         <activity android:name=".viewSpecificOrder"></activity>
         <activity android:name=".settings.SettingsActivity"></activity>
+        <activity android:name=".BarCodeScanner"></activity>
+
     </application>
 
 </manifest>
