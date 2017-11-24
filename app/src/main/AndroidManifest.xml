@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".viewOrders">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,8 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".viewSpecificOrder"></activity>
-        <activity android:name=".settings.SettingsActivity"></activity>
+        <activity android:name=".viewSpecificOrder" />
+        <activity android:name=".settings.SettingsActivity" />
+        <activity android:name=".BarCodeScanner"></activity>
     </application>
 
 </manifest>
