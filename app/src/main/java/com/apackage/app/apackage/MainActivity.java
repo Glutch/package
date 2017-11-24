@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     testingDB();
 
+    testScanner();
+
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     int number = sharedPreferences.getInt(SettingsActivity.KEY_GENERATEORDERS, -1);
     TextView textView = (TextView) findViewById(R.id.mainTextView);
@@ -29,12 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
   }
 
+  // todo bort med koden. bara för test syfte
+  private void testScanner() {
+    Intent intent = new Intent(this,BarCodeScanner.class);
+
+    startActivity(intent);
+  }
+
   //en metod för att testa databasfunktionalitet, ska ej vara kvar i slutprodukt
   public void testingDB(){
       DBHelper dbHelper = new DBHelper(this);
-    //  dbHelper.resetTheMF();   //<- use this to reset database if needed
+      //dbHelper.resetTheMF();   //<- use this to reset database if needed
 
-    //     dbHelper.addMultipleOrders(fakeOrder(5));
+       // dbHelper.addMultipleOrders(fakeOrder(5));
       dbHelper.getAllOrders();
 
   }
