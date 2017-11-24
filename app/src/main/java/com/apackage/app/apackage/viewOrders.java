@@ -45,7 +45,7 @@ public class viewOrders extends AppCompatActivity {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(view.getContext(), viewSpecificOrder.class);
-        intent.putExtra("ID", orderAdapter.getItemId(position));
+        intent.putExtra("ORDERID", id);
         intent.putExtra("POSITION", position);
         startActivityForResult(intent, 1);
       }

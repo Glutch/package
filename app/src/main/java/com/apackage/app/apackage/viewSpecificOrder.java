@@ -64,10 +64,10 @@ public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         mFusedLocationClient =  LocationServices.getFusedLocationProviderClient(this);
 
         Intent intent = getIntent();
-        long id = intent.getLongExtra("ID", -1);
+        long orderId = intent.getLongExtra("ORDERID", -1);
 
         dbHelper = new DBHelper(this);
-        order = dbHelper.getByOrderId((int) id);
+        order = dbHelper.getByOrderId(orderId);
 
         clientID = findViewById(R.id.clientID);
         clientID.setText("" + order.prize);
