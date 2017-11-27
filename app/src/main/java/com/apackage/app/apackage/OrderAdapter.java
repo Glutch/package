@@ -40,7 +40,7 @@ public class OrderAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return orderList.get(position).ID;
+        return orderList.get(position).orderId;
     }
 
     @Override

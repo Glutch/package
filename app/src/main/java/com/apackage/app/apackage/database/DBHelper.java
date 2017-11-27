@@ -200,8 +200,8 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param orderID specifik order id.
      * @return one order.
      */
-    public Order getByOrderId(int orderID){
-        String selection = "id="+orderID;
+    public Order getByOrderId(long orderID){
+        String selection = "orderID="+orderID;
         return getSpecificOrders(null,selection,null,null,null,null).get(0);
     }
 

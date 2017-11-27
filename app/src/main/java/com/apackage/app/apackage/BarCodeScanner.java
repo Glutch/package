@@ -76,7 +76,7 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
         mScannerView.stopCamera();
 
         Intent intent = new Intent(this, viewSpecificOrder.class);
-        intent.putExtra("ID", result); // todo funkar inte riktigt än. borde kolla orderID
+        intent.putExtra("ORDERID", result); // todo funkar inte riktigt än. borde kolla orderID
 
         startActivity(intent);
     }

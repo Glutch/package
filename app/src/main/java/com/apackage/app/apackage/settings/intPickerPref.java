@@ -30,10 +30,9 @@ public class intPickerPref extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-
+        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         numberPicker.setMaxValue(20);
         numberPicker.setMinValue(1);
-        numberPicker.setValue(1);
     }
 
     @Override
