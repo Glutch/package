@@ -53,7 +53,7 @@ public class OrderAdapter extends BaseAdapter {
 
         TextView textOrderId = view.findViewById(R.id.textOrderId);
         TextView textOrderDate = view.findViewById(R.id.textOrderDate);
-        textOrderId.setText(""+ orderList.get(position).orderId);
+        textOrderId.setText("#"+ orderList.get(position).orderId);
         textOrderDate.setText(orderList.get(position).deliveryTime);
 
         return view;
