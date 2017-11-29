@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 public class DBHelper extends SQLiteOpenHelper {
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     public DBHelper(Context context) {
         super(context, "OrderDataBase", null, DB_VERSION);
@@ -31,6 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql = "CREATE TABLE Orders (id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "clientId INTEGER," +
                 "clientName TEXT NOT NULL," +
+                "clientLastName TEXT NOT NULL," +
                 "address TEXT NOT NULL," +
                 "postalCode INTEGER," +
                 "postalTown TEXT," +
@@ -62,12 +64,13 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param deliveryTime -
      * @param delivered -
      */
-    public void addOrder(long clientID, String clientName, String address, long postalCode, String postalTown, long orderId, long weight, long prize, String deliveryTime, boolean delivered){
+    public void addOrder(long clientID, String clientName,String clientLastName, String address, long postalCode, String postalTown, long orderId, long weight, long prize, String deliveryTime, boolean delivered){
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("clientID", clientID);
         contentValues.put("clientName",clientName);
+        contentValues.put("clientLastName",clientLastName);
         contentValues.put("address",address);
         contentValues.put("postalCode", postalCode);
         contentValues.put("postalTown", postalTown);
@@ -91,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param order -
      */
     public void addOrder(Order order){
-        addOrder(order.clientId, order.clientName, order.address, order.postalCode, order.postalTown,
+        addOrder(order.clientId, order.clientName, order.clientLastname, order.address, order.postalCode, order.postalTown,
                 order.orderId, order.weight, order.prize, order.deliveryTime, order.delivered);
     }
 
@@ -138,14 +141,15 @@ public class DBHelper extends SQLiteOpenHelper {
             order.ID = c.getLong(0);
             order.clientId = c.getLong(1);
             order.clientName = c.getString(2);
-            order.address = c.getString(3);
-            order.postalCode = c.getLong(4);
-            order.postalTown = c.getString(5);
-            order.orderId = c.getLong(6);
-            order.weight = c.getLong(7);
-            order.prize =c.getLong(8);
-            order.deliveryTime = c.getString(9);
-            int delivered = c.getInt(10);
+            order.clientLastname = c.getString(3);
+            order.address = c.getString(4);
+            order.postalCode = c.getLong(5);
+            order.postalTown = c.getString(6);
+            order.orderId = c.getLong(7);
+            order.weight = c.getLong(8);
+            order.prize =c.getLong(9);
+            order.deliveryTime = c.getString(10);
+            int delivered = c.getInt(11);
             order.delivered = (delivered == 1);
 
             orderList.add(order);
@@ -169,7 +173,10 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("delivered", 1);
-        //todo contentValues.put("???", deliveryTime);
+
+        Date date = new Date();
+        DateFormat currentDate = DateFormat.getDateInstance();
+        contentValues.put("deliveryTime", currentDate.format(date.getTime()));
 
         db.update("Orders", contentValues, "id=?", new String[] {""+ order.ID});
         db.close();

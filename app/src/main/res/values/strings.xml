@@ -10,5 +10,5 @@
     <string name="delivered">delivered</string>
     <string name="order">Order</string>
     <string name="YOUR_API_KEY">AIzaSyBk06K6vhmV5Ybf-AzBIM3kO4BfeuHPfRM</string>
-    <string name="barcodescanner" />
+    <string name="barcodescanner">Open Scanner</string>
 </resources>

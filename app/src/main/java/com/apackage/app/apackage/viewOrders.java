@@ -30,6 +30,7 @@ public class viewOrders extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_view_orders);
 
+
     Toolbar toolbar = findViewById(R.id.toolbar2);
     setSupportActionBar(toolbar);
 

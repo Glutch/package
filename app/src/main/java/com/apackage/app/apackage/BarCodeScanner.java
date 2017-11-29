@@ -57,7 +57,7 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
     @Override
     public void onResume() {
         super.onResume();
-        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+        mScannerView.setResultHandler(this);
         mScannerView.startCamera();
     }
 
@@ -86,6 +86,7 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
                 text = "Order NOT in Database!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                mScannerView.setResultHandler(this);
                 mScannerView.startCamera();
                 return;
             }
@@ -100,6 +101,7 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+            mScannerView.setResultHandler(this);
             mScannerView.startCamera();
         }
     }
