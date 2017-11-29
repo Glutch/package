@@ -73,16 +73,13 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
         int duration = Toast.LENGTH_SHORT;
         CharSequence text;
 
-
-
         long result = 0;
         if (rawResult.getText().matches("[0-9]+")) {
             result = Long.parseLong(rawResult.getText());
 
-            try {
-                DBHelper db = new DBHelper(this);
-                db.getByOrderId(result);
-            } catch (Exception e){
+            // Check if order in Database
+            DBHelper db = new DBHelper(this);
+            if(db.getByOrderId(result) == null) {
                 text = "Order NOT in Database!";
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -90,6 +87,8 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
                 mScannerView.startCamera();
                 return;
             }
+
+            // Stop Camera and sends you to specifik View.
             mScannerView.stopCamera();
             Intent intent = new Intent(this, viewSpecificOrder.class);
             intent.putExtra("ORDERID", result);
