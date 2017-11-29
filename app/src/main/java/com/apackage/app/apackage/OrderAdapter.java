@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.apackage.app.apackage.database.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,10 @@ public class OrderAdapter extends BaseAdapter {
      * @param orderList
      */
     public OrderAdapter(Context context, List<Order> orderList) {
-        this.orderList = orderList;
+        if (orderList == null)
+            this.orderList = new ArrayList<>();
+        else
+            this.orderList = orderList;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -69,7 +73,10 @@ public class OrderAdapter extends BaseAdapter {
      * @param orderList - new orderList
      */
     public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
+        if (orderList == null)
+            this.orderList = new ArrayList<>();
+        else
+            this.orderList = orderList;
         notifyDataSetChanged();
     }
 
