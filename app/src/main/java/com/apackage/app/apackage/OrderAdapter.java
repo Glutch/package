@@ -9,20 +9,24 @@ import android.widget.TextView;
 
 import com.apackage.app.apackage.database.Order;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mrx on 2017-11-19.
+ * An Adapter that handles Orders to show in ListView.
  */
-
 public class OrderAdapter extends BaseAdapter {
 
     private Context context;
     private List<Order> orderList;
     private LayoutInflater inflater;
 
-    public OrderAdapter(Context context, List<Order> orderList){
+    /**
+     * Constructor that sets context, orderList and inflater.
+     *
+     * @param context
+     * @param orderList
+     */
+    public OrderAdapter(Context context, List<Order> orderList) {
         this.orderList = orderList;
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,24 +50,34 @@ public class OrderAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;
-        if (convertView==null)
+        if (convertView == null)
             view = inflater.inflate(R.layout.order_list_layout, parent, false);
         else
             view = convertView;
 
         TextView textOrderId = view.findViewById(R.id.textOrderId);
         TextView textOrderDate = view.findViewById(R.id.textOrderDate);
-        textOrderId.setText("#"+ orderList.get(position).orderId);
+        textOrderId.setText("#" + orderList.get(position).orderId);
         textOrderDate.setText(orderList.get(position).deliveryTime);
 
         return view;
     }
 
+    /**
+     * Inserts a new orderList and notifies the ListView.
+     *
+     * @param orderList - new orderList
+     */
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
         notifyDataSetChanged();
     }
 
+    /**
+     * Removes a specific order from orderList and notifies the ListView.
+     *
+     * @param order - specific order to remove.
+     */
     public void removeOrder(Order order) {
         orderList.remove(order);
         notifyDataSetChanged();

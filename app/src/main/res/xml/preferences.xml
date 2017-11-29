@@ -7,7 +7,7 @@
         android:summary="@string/summery_number"
         android:phoneNumber="true"/>
 
-    <com.apackage.app.apackage.settings.intPickerPref
+    <com.apackage.app.apackage.settings.NumberPickerPref
         android:key="order_key"
         android:title="@string/generate_orders"
         android:dialogTitle="@string/generate_orders"

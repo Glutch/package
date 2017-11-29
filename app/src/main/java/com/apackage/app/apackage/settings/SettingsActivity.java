@@ -6,10 +6,14 @@ import android.os.Bundle;
 
 import com.apackage.app.apackage.R;
 
+/**
+ * Activity that displays the settings fragment.
+ */
 public class SettingsActivity extends AppCompatActivity {
 
-    public static final String KEY_PHONENUMBER= "number_key";
+    public static final String KEY_PHONENUMBER = "number_key";
     public static final String KEY_GENERATEORDERS = "order_key";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

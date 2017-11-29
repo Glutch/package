@@ -38,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "postalTown TEXT," +
                 "orderId INTEGER," +
                 "weight INTEGER," +
-                "prize INTEGER," +
+                "price INTEGER," +
                 "deliveryTime TEXT," +
                 "delivered INTEGER DEFAULT 0)";
 
@@ -64,7 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param deliveryTime -
      * @param delivered -
      */
-    public void addOrder(long clientID, String clientName,String clientLastName, String address, long postalCode, String postalTown, long orderId, long weight, long prize, String deliveryTime, boolean delivered){
+    public void addOrder(long clientID, String clientName,String clientLastName, String address, long postalCode, String postalTown, long orderId, long weight, long price, String deliveryTime, boolean delivered){
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -76,7 +76,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("postalTown", postalTown);
         contentValues.put("orderID", orderId);
         contentValues.put("weight", weight);
-        contentValues.put("prize", prize);
+        contentValues.put("price", price);
         contentValues.put("deliveryTime", deliveryTime);
         if(delivered){
             contentValues.put("delivered", 1);
@@ -95,7 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public void addOrder(Order order){
         addOrder(order.clientId, order.clientName, order.clientLastname, order.address, order.postalCode, order.postalTown,
-                order.orderId, order.weight, order.prize, order.deliveryTime, order.delivered);
+                order.orderId, order.weight, order.price, order.deliveryTime, order.delivered);
     }
 
     /**
@@ -147,13 +147,13 @@ public class DBHelper extends SQLiteOpenHelper {
             order.postalTown = c.getString(6);
             order.orderId = c.getLong(7);
             order.weight = c.getLong(8);
-            order.prize =c.getLong(9);
+            order.price =c.getLong(9);
             order.deliveryTime = c.getString(10);
             int delivered = c.getInt(11);
             order.delivered = (delivered == 1);
 
             orderList.add(order);
-            Log.d("DB-test", "getAllOrders: " + order.ID + ", " + order.clientId + ", " + order.address + ", " + order.postalCode + ", " + order.postalTown + ", " + order.orderId + ", " + order.weight + ", " + order.prize+ ", " + order.deliveryTime + ", " + order.delivered);
+            Log.d("DB-test", "getAllOrders: " + order.ID + ", " + order.clientId + ", " + order.address + ", " + order.postalCode + ", " + order.postalTown + ", " + order.orderId + ", " + order.weight + ", " + order.price+ ", " + order.deliveryTime + ", " + order.delivered);
 
         }while(c.moveToNext());
 

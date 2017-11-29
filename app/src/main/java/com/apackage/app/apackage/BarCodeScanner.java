@@ -45,7 +45,7 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
     {
 
-        switch (Premissions.checkPremis(requestCode,permissions,grantResults))
+        switch (Permissions.checkPremis(requestCode,permissions,grantResults))
         {
             case DIALOGCANCELLED:return;
             case PREMISSION_GRANTED:mScannerView.startCamera(); break;
@@ -91,7 +91,7 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
                 return;
             }
             mScannerView.stopCamera();
-            Intent intent = new Intent(this, viewSpecificOrder.class);
+            Intent intent = new Intent(this, ViewSpecificOrder.class);
             intent.putExtra("ORDERID", result);
             startActivity(intent);
         }

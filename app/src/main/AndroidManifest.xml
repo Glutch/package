@@ -35,14 +35,14 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".viewOrders">
+        <activity android:name=".ViewOrders">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".viewSpecificOrder"></activity>
+        <activity android:name=".ViewSpecificOrder"></activity>
         <activity android:name=".settings.SettingsActivity"></activity>
         <activity android:name=".BarCodeScanner"></activity>
 

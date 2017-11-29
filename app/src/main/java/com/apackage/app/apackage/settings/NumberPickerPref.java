@@ -7,14 +7,19 @@ import android.view.View;
 import android.widget.NumberPicker;
 
 /**
- * Created by mrx on 2017-11-17.
+ * Custom made NumberPicker for preference view.
  */
 
-public class intPickerPref extends DialogPreference {
+public class NumberPickerPref extends DialogPreference {
 
     private NumberPicker numberPicker = null;
 
-    public intPickerPref(Context context, AttributeSet attrs) {
+    /**
+     * Constructor that sets the buttons in dialog.
+     * @param context
+     * @param attrs
+     */
+    public NumberPickerPref(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         setPositiveButtonText(android.R.string.ok);
@@ -39,7 +44,7 @@ public class intPickerPref extends DialogPreference {
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
 
-        if (positiveResult){
+        if (positiveResult) {
             persistInt(numberPicker.getValue());
         }
 

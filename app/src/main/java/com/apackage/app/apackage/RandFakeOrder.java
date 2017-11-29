@@ -47,7 +47,7 @@ public class RandFakeOrder {
         order.clientId = rand.nextInt(99999);
         order.weight = (long) rand.nextInt(999999);
         order.orderId = rand.nextInt(40000);
-        order.prize = 100 * rand.nextInt(40);
+        order.price = 100 * rand.nextInt(40);
 
         orderlist.add(order);
         }

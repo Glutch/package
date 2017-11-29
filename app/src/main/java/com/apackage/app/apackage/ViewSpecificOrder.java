@@ -29,7 +29,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCallback {
+/**
+ * Activity that presents a specific order.
+ */
+public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCallback {
 
     private TextView clientID;
     private TextView ordernumber;
@@ -65,7 +68,7 @@ public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         order = dbHelper.getByOrderId(orderId);
 
         clientID = findViewById(R.id.clientID);
-        clientID.setText("" + order.prize);
+        clientID.setText("" + order.price);
         ordernumber = findViewById(R.id.ordernumber);
         ordernumber.setText("" + order.orderId);
         firstname = findViewById(R.id.firstname);
@@ -81,26 +84,31 @@ public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         weight = findViewById(R.id.weight);
         weight.setText("" + order.weight);
         price = findViewById(R.id.price);
-        price.setText("" + order.prize);
+        price.setText("" + order.price);
         deliverydate = findViewById(R.id.deliverydate);
         deliverydate.setText(order.deliveryTime);
         deliverystatus = findViewById(R.id.deliverystatus);
-        deliverystatus.setText("" + order.delivered);
+        if (order.delivered)
+            deliverystatus.setText(R.string.delivered);
+        else
+            deliverystatus.setText(R.string.not_delivered);
         deliveredBtn = findViewById(R.id.button2);
         if (order.delivered)
             deliveredBtn.setVisibility(View.GONE);
     }
 
+    /**
+     * When button delivered clicked try to send sms and change order in database to delivered.
+     * @param view
+     */
     public void onClickDelivered(View view) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) ==
-                PackageManager.PERMISSION_GRANTED) {
-            sendSMS();
-        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             sendSMS();
         } else {
             Toast toast = new Toast(this);
-            toast.makeText(this, "Sms not sent! Needs permissions!", Toast.LENGTH_SHORT).show();
+            toast.makeText(this, R.string.needs_permission_toast, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -121,7 +129,7 @@ public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
 
         } catch (IllegalArgumentException e) {
             Toast toast = new Toast(this);
-            toast.makeText(this, "Sms not sent! Check phonenumber.", Toast.LENGTH_SHORT).show();
+            toast.makeText(this, R.string.wrong_phonenumber_toast, Toast.LENGTH_SHORT).show();
         }
     }
 

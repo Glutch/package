@@ -11,4 +11,7 @@
     <string name="order">Order</string>
     <string name="YOUR_API_KEY">AIzaSyBk06K6vhmV5Ybf-AzBIM3kO4BfeuHPfRM</string>
     <string name="barcodescanner">Open Scanner</string>
+    <string name="not_delivered">Not delivered</string>
+    <string name="wrong_phonenumber_toast">Sms not sent! Check phonenumber!</string>
+    <string name="needs_permission_toast">Sms not sent! Needs permissions!</string>
 </resources>

@@ -2,7 +2,6 @@ package com.apackage.app.apackage.database;
 
 /**
  * Created by Tjoffex on 13/11/17.
- *
  */
 
 
@@ -16,7 +15,7 @@ public class Order {
     public String postalTown;
     public long orderId;
     public long weight;
-    public long prize;
+    public long price;
     public String deliveryTime;
     public boolean delivered;
 
