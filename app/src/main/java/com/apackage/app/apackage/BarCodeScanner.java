@@ -1,12 +1,14 @@
 package com.apackage.app.apackage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.widget.Toast;
 
+import com.apackage.app.apackage.database.DBHelper;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -67,18 +69,39 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
 
     @Override
     public void handleResult(Result rawResult) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        CharSequence text;
 
-        Log.v("TAG", rawResult.getText());
-        Log.v("TAG", rawResult.getBarcodeFormat().toString());
 
-        long result = Integer.parseInt(rawResult.getText());
 
-        mScannerView.stopCamera();
+        long result = 0;
+        if (rawResult.getText().matches("[0-9]+")) {
+            result = Long.parseLong(rawResult.getText());
 
-        Intent intent = new Intent(this, viewSpecificOrder.class);
-        intent.putExtra("ORDERID", result); // todo funkar inte riktigt än. borde kolla orderID
+            try {
+                DBHelper db = new DBHelper(this);
+                db.getByOrderId(result);
+            } catch (Exception e){
+                text = "Order NOT in Database!";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                mScannerView.startCamera();
+                return;
+            }
+            mScannerView.stopCamera();
+            Intent intent = new Intent(this, viewSpecificOrder.class);
+            intent.putExtra("ORDERID", result);
+            startActivity(intent);
+        }
+        else {
 
-        startActivity(intent);
+            text = "BarCode Contains other then numbers";
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            mScannerView.startCamera();
+        }
     }
 
 
