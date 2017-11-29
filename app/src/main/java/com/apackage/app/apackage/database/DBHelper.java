@@ -134,8 +134,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         boolean success = c.moveToFirst();
 
-        if( !success)
-            return orderList;
+        if( !success) {
+
+            return orderList = null;
+
+        }
         do{
             Order order = new Order();
             order.ID = c.getLong(0);
@@ -205,10 +208,14 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Get order by orderID
      * @param orderID specifik order id.
-     * @return one order.
+     * @return one order. null if order doesnt exist
      */
     public Order getByOrderId(long orderID){
         String selection = "orderID="+orderID;
+
+        // null if order doesnt exist
+        if(getSpecificOrders(null,selection,null,null,null,null) == null)
+            return null;
         return getSpecificOrders(null,selection,null,null,null,null).get(0);
     }
 
