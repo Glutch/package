@@ -6,7 +6,7 @@
     <string name="summery_generate_orders">Amount of orders to generate</string>
     <string name="generate">Generate</string>
     <string name="settings">Settings</string>
-    <string name="delivered_button">Delivered</string>
+    <string name="delivered_button">Deliver</string>
     <string name="delivered">delivered</string>
     <string name="order">Order</string>
     <string name="YOUR_API_KEY">AIzaSyBk06K6vhmV5Ybf-AzBIM3kO4BfeuHPfRM</string>
