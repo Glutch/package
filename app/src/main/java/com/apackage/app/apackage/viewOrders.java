@@ -1,8 +1,10 @@
 package com.apackage.app.apackage;
 
+import android.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +35,9 @@ public class viewOrders extends AppCompatActivity {
 
     Toolbar toolbar = findViewById(R.id.toolbar2);
     setSupportActionBar(toolbar);
+
+    ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.SEND_SMS,
+            android.Manifest.permission.READ_PHONE_STATE}, 1);
 
     onOrder = true;
 

@@ -34,7 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCallback{
+public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCallback {
 
     private TextView clientID;
     private TextView ordernumber;
@@ -61,7 +61,7 @@ public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        mFusedLocationClient =  LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         Intent intent = getIntent();
         long orderId = intent.getLongExtra("ORDERID", -1);
@@ -97,7 +97,17 @@ public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
     }
 
     public void onClickDelivered(View view) {
-        sendSMS();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O && ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) ==
+                PackageManager.PERMISSION_GRANTED) {
+            sendSMS();
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            sendSMS();
+        } else {
+            Toast toast = new Toast(this);
+            toast.makeText(this, "Sms not sent! Needs permissions!", Toast.LENGTH_SHORT).show();
+        }
+
 
         dbHelper.markAsDelivered(order);
         Intent intent = getIntent();
@@ -107,100 +117,88 @@ public class viewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
 
     private void sendSMS() {
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) ==
-                    PackageManager.PERMISSION_DENIED)
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 1);
-        } else if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED ||
-                checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE}, 1);
-        }
-
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             String nr = sharedPreferences.getString(SettingsActivity.KEY_PHONENUMBER, "");
             String message = getString(R.string.order) + " " + order.orderId + " " + getString(R.string.delivered) + ".";
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(nr, "null", message, null, null);
+            smsManager.sendTextMessage(nr, null, message, null, null);
 
         } catch (IllegalArgumentException e) {
             Toast toast = new Toast(this);
             toast.makeText(this, "Sms not sent! Check phonenumber.", Toast.LENGTH_SHORT).show();
-        }catch (SecurityException e){
-            Toast toast = new Toast(this);
-            toast.makeText(this, "Sms not sent! Needs permissions!", Toast.LENGTH_SHORT).show();
         }
     }
 
-  @Override
-  public void onMapReady(GoogleMap googleMap) {
-    LatLng sydney = new LatLng(-33.852, 151.211);
-    googleMap.addMarker(new MarkerOptions().position(sydney)
-            .title("Marker in Sydney"));
-    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng sydney = new LatLng(-33.852, 151.211);
+        googleMap.addMarker(new MarkerOptions().position(sydney)
+                .title("Marker in Sydney"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-  }
-
-  public boolean checkLocationPermission() {
-    if (ContextCompat.checkSelfPermission(this,
-            Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-
-
-      if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-              Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-
-      } else {
-
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                MY_PERMISSIONS_REQUEST_LOCATION);
-      }
-      return false;
-    } else {
-      return true;
     }
-    // TODO
 
-  }
-
-  @Override
-  public void onRequestPermissionsResult(int requestCode,
-                                         String permissions[], int[] grantResults) {
-    switch (requestCode) {
-      case MY_PERMISSIONS_REQUEST_LOCATION: {
-
-        if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
 
-          if (ContextCompat.checkSelfPermission(this,
-                  Manifest.permission.ACCESS_FINE_LOCATION)
-                  == PackageManager.PERMISSION_GRANTED) {
-          }
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
         } else {
+            return true;
+        }
+        // TODO
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                    }
+
+                } else {
+
+                }
+                return;
+            }
 
         }
-        return;
-      }
-
-    }
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-
-    if (checkLocationPermission()) {
-      if (ContextCompat.checkSelfPermission(this,
-              Manifest.permission.ACCESS_FINE_LOCATION)
-              == PackageManager.PERMISSION_GRANTED) {
-
-      }
     }
 
-  }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (checkLocationPermission()) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+
+            }
+        }
+
+    }
 
 }
