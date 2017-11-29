@@ -1,12 +1,14 @@
 package com.apackage.app.apackage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.widget.Toast;
 
+import com.apackage.app.apackage.database.DBHelper;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -56,28 +58,50 @@ public class BarCodeScanner extends AppCompatActivity implements ZXingScannerVie
     public void onResume() {
         super.onResume();
         mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
-        mScannerView.startCamera();          // Start camera on resume
+        mScannerView.startCamera();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mScannerView.stopCamera();           // Stop camera on pause
+        mScannerView.stopCamera();
     }
 
     @Override
     public void handleResult(Result rawResult) {
-        // Do something with the result here
-        Log.v("TAG", rawResult.getText()); // Prints scan results
-        Log.v("TAG", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
-        long result = Integer.parseInt(rawResult.getText());
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        CharSequence text;
 
-        mScannerView.stopCamera();
 
-        Intent intent = new Intent(this, viewSpecificOrder.class);
-        intent.putExtra("ORDERID", result); // todo funkar inte riktigt än. borde kolla orderID
 
-        startActivity(intent);
+        long result = 0;
+        if (rawResult.getText().matches("[0-9]+")) {
+            result = Long.parseLong(rawResult.getText());
+
+            try {
+                DBHelper db = new DBHelper(this);
+                db.getByOrderId(result);
+            } catch (Exception e){
+                text = "Order NOT in Database!";
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+                mScannerView.startCamera();
+                return;
+            }
+            mScannerView.stopCamera();
+            Intent intent = new Intent(this, viewSpecificOrder.class);
+            intent.putExtra("ORDERID", result);
+            startActivity(intent);
+        }
+        else {
+
+            text = "BarCode Contains other then numbers";
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            mScannerView.startCamera();
+        }
     }
 
 

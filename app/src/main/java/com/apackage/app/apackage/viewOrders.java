@@ -3,10 +3,10 @@ package com.apackage.app.apackage;
 import android.*;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +17,6 @@ import android.widget.ListView;
 import com.apackage.app.apackage.database.DBHelper;
 import com.apackage.app.apackage.database.Order;
 import com.apackage.app.apackage.settings.SettingsActivity;
-
-import java.util.List;
-import java.util.zip.Inflater;
 
 public class viewOrders extends AppCompatActivity {
 
@@ -75,7 +72,10 @@ public class viewOrders extends AppCompatActivity {
         break;
       case R.id.preferences:
         Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
+        startActivity(intent); break;
+      case R.id.barCodeScanner:
+          Intent intent1 = new Intent(this, BarCodeScanner.class);
+        startActivity(intent1); break;
     }
     return super.onOptionsItemSelected(item);
   }
