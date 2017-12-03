@@ -43,6 +43,7 @@ public class ViewOrders extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
         dbHelper = new DBHelper(this);
+        //dbHelper.resetTheMF();
 
         orderAdapter = new OrderAdapter(this, dbHelper.getOrdersDelivered(0));
         listView.setAdapter(orderAdapter);
