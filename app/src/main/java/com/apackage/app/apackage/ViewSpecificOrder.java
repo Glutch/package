@@ -124,6 +124,8 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
      * @param view
      */
     public void onClickDelivered(View view) {
+        order.latLng = latLng;
+        dbHelper.setLatLang(order);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
@@ -132,7 +134,6 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
             Toast toast = new Toast(this);
             toast.makeText(this, R.string.needs_permission_toast, Toast.LENGTH_SHORT).show();
         }
-
 
         dbHelper.markAsDelivered(order);
         Intent intent = getIntent();
@@ -167,6 +168,15 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         buildGoogleApiClient();
 
         mGoogleApiClient.connect();
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        if (order.latLng != null) {
+            markerOptions.position(order.latLng);
+            markerOptions.title("Current Position");
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+            currLocationMarker = mGoogleMap.addMarker(markerOptions);
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(order.latLng, 11));
+        }
 
 
     }
@@ -292,14 +302,8 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
             currLocationMarker.remove();
         }
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        currLocationMarker = mGoogleMap.addMarker(markerOptions);
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
 
-        order.latLng = latLng;
-        dbHelper.setLatLang(order);
+
+
     }
 }
