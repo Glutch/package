@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
@@ -250,6 +247,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
 
             return;
         }
+
         Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
@@ -298,6 +296,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         currLocationMarker = mGoogleMap.addMarker(markerOptions);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+
 
         order.latLng = latLng;
         dbHelper.setLatLang(order);
