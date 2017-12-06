@@ -33,7 +33,7 @@ public class ViewOrders extends AppCompatActivity {
         setContentView(R.layout.activity_view_orders);
 
 
-        Toolbar toolbar = findViewById(R.id.toolbar2);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.SEND_SMS,
