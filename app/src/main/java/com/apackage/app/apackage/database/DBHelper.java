@@ -10,6 +10,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -98,8 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param order -
      */
     public void addOrder(Order order){
-        addOrder(order.clientId, order.clientName, order.clientLastname, order.address, order.postalCode, order.postalTown,
-                order.orderId, order.weight, order.price, order.deliveryTime, order.delivered);
+        addOrder(order.clientId, order.clientName, order.clientLastname, order.address, order.postalCode, order.postalTown, order.orderId, order.weight, order.price, order.deliveryTime, order.delivered);
     }
 
     /**
@@ -118,7 +118,8 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return a List of all Orders in the database
      */
     public List<Order> getAllOrders(){
-        return getSpecificOrders(null,null,null,null,null,null);
+        return getSpecificOrders(null,null,
+                            null,null,null,null);
     }
 
     /**
@@ -131,7 +132,8 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param orderby -
      * @return a List of orders matching the parameters
      */
-    public List<Order> getSpecificOrders(String columns[], String selection, String[] selectionArgs, String groupBy, String having, String orderby ){
+    public List<Order> getSpecificOrders(String columns[], String selection, String[] selectionArgs,
+                                         String groupBy, String having, String orderby ){
         List<Order> orderList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query("Orders", columns, selection, selectionArgs,groupBy,having, orderby);
@@ -183,9 +185,9 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put("delivered", 1);
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        DateFormat currentDate = DateFormat.getDateInstance();
-        contentValues.put("deliveryTime", currentDate.format(date.getTime()));
+        contentValues.put("deliveryTime", simpleDateFormat.format(date.getTime()));
 
         db.update("Orders", contentValues, "id=?", new String[] {""+ order.ID});
         db.close();
@@ -208,7 +210,8 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public List<Order> getOrdersDelivered(int isDelivered){
         String selection = "delivered="+isDelivered;
-        return getSpecificOrders(null,selection,null,null,null,"orderID ASC");
+        return getSpecificOrders(null,selection,null,null,
+                                null,"deliveryTime ASC");
     }
 
     /**

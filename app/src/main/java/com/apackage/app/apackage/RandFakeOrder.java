@@ -1,14 +1,15 @@
 package com.apackage.app.apackage;
 
+
 import com.apackage.app.apackage.database.Order;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
 /**
- * Created by mrx on 2017-11-15.
+ * Created by Petteri Tuononen on 2017-11-15.
  */
 
 public class RandFakeOrder {
@@ -34,16 +35,17 @@ public class RandFakeOrder {
         Order order = new Order();
 
         Date now = new Date();
-        DateFormat currentDate = DateFormat.getDateInstance();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date addedDate = addDays(now, rand.nextInt(30));
 
-        order.deliveryTime = currentDate.format(addedDate).toString();
+        order.deliveryTime = simpleDateFormat.format(addedDate);
 
         order.address = streets[rand.nextInt(streets.length)];
         order.postalTown = cities[rand.nextInt(cities.length)];
         order.postalCode = rand.nextInt(99999);
         order.clientName = names[rand.nextInt(names.length)];
-        order.clientLastname = lastnames[rand.nextInt(lastnames.length)];  // last name
+        order.clientLastname = lastnames[rand.nextInt(lastnames.length)];
         order.clientId = rand.nextInt(99999);
         order.weight = (long) rand.nextInt(999999);
         order.orderId = rand.nextInt(40000);
