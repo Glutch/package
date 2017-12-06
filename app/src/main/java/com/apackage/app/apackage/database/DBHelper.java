@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,7 +42,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "weight INTEGER," +
                 "price INTEGER," +
                 "deliveryTime TEXT," +
-                "delivered INTEGER DEFAULT 0)";
+                "delivered INTEGER DEFAULT 0," +
+                "lang TEXT," +
+                "lat TEXT)";
 
         db.execSQL(sql);
 
@@ -154,6 +158,8 @@ public class DBHelper extends SQLiteOpenHelper {
             order.deliveryTime = c.getString(10);
             int delivered = c.getInt(11);
             order.delivered = (delivered == 1);
+            if (c.getString(12)!=null)
+                order.latLng = new LatLng( Double.parseDouble(c.getString(12)), Double.parseDouble(c.getString(13)));
 
             orderList.add(order);
             Log.d("DB-test", "getAllOrders: " + order.ID + ", " + order.clientId + ", " + order.address + ", " + order.postalCode + ", " + order.postalTown + ", " + order.orderId + ", " + order.weight + ", " + order.price+ ", " + order.deliveryTime + ", " + order.delivered);
@@ -219,7 +225,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return getSpecificOrders(null,selection,null,null,null,null).get(0);
     }
 
+    public void setLatLang(Order order){
+        String lat = "" + order.latLng.latitude;
+        String lang = "" + order.latLng.longitude;
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("lang", lang);
+        contentValues.put("lat", lat);
 
+        db.update("Orders", contentValues, "id=?", new String[] {""+ order.ID});
+        db.close();
+    }
 
     //used to reset the database during dev to avoid version handling the database
     public void resetTheMF(){

@@ -112,8 +112,11 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         else
             deliverystatus.setText(R.string.not_delivered);
         deliveredBtn = findViewById(R.id.button2);
-        if (order.delivered)
+        if (order.delivered) {
             deliveredBtn.setVisibility(View.GONE);
+        }else
+            mapFragment.getView().setVisibility(View.GONE);
+
     }
 
     /**
@@ -296,7 +299,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         currLocationMarker = mGoogleMap.addMarker(markerOptions);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
 
-
-
+        order.latLng = latLng;
+        dbHelper.setLatLang(order);
     }
 }

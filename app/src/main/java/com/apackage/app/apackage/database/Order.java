@@ -1,5 +1,7 @@
 package com.apackage.app.apackage.database;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Tjoffex on 13/11/17.
  */
@@ -18,6 +20,7 @@ public class Order {
     public long price;
     public String deliveryTime;
     public boolean delivered;
+    public LatLng latLng;
 
 
 }
