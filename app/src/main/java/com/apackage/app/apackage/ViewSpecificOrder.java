@@ -211,7 +211,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         } else {
             return true;
         }
-        // TODO
+
 
     }
 
@@ -264,7 +264,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
                 mGoogleApiClient);
         if (mLastLocation != null) {
             //place marker at current position
-            //mGoogleMap.clear();
+
             latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(latLng);
@@ -277,7 +277,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         mLocationRequest.setInterval(15000); //15 seconds
         mLocationRequest.setFastestInterval(13000); //13 seconds
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        //mLocationRequest.setSmallestDisplacement(0.1F); //1/10 meter
+
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
