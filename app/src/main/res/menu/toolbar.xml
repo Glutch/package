@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/generateOrders"
-        android:icon="@android:drawable/ic_popup_sync"
+        android:icon="@drawable/ic_add"
         android:title="@string/summery_generate_orders"
         app:showAsAction="ifRoom" />
     <item
@@ -14,7 +14,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/barCodeScanner"
-        android:icon="@drawable/ic_action_name"
+        android:icon="@drawable/ic_qr"
         android:title="@string/barcodescanner"
         app:showAsAction="ifRoom" />
 </menu>
