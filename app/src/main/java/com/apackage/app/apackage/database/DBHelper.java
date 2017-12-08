@@ -161,7 +161,7 @@ public class DBHelper extends SQLiteOpenHelper {
             int delivered = c.getInt(11);
             order.delivered = (delivered == 1);
             if (c.getString(12)!=null)
-                order.latLng = new LatLng( Double.parseDouble(c.getString(12)), Double.parseDouble(c.getString(13)));
+                order.latLng = new LatLng(Double.parseDouble(c.getString(13)),Double.parseDouble(c.getString(12)));
 
             orderList.add(order);
             Log.d("DB-test", "getAllOrders: " + order.ID + ", " + order.clientId + ", " + order.address + ", " + order.postalCode + ", " + order.postalTown + ", " + order.orderId + ", " + order.weight + ", " + order.price+ ", " + order.deliveryTime + ", " + order.delivered);
