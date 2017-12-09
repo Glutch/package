@@ -111,8 +111,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         deliveredBtn = findViewById(R.id.button2);
         if (order.delivered) {
             deliveredBtn.setVisibility(View.GONE);
-        }else
-            mapFragment.getView().setVisibility(View.GONE);
+        }
 
     }
 

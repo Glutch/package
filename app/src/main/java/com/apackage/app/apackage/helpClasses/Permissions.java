@@ -1,4 +1,4 @@
-package com.apackage.app.apackage;
+package com.apackage.app.apackage.helpClasses;
 
 import android.content.pm.PackageManager;
 

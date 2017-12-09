@@ -1,4 +1,4 @@
-package com.apackage.app.apackage;
+package com.apackage.app.apackage.helpClasses;
 
 
 import com.apackage.app.apackage.database.Order;
