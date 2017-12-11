@@ -303,8 +303,5 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
 
-
-        order.latLng = latLng;
-        dbHelper.setLatLang(order);
     }
 }
