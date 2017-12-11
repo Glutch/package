@@ -32,16 +32,22 @@
 
         </meta-data>
 
-        <activity android:name=".ViewOrders">
+        <activity
+            android:name=".ViewOrders"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewSpecificOrder"></activity>
-        <activity android:name=".settings.SettingsActivity"></activity>
-        <activity android:name=".BarCodeScanner"></activity>
+        <activity android:name=".ViewSpecificOrder" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ViewOrders">
+        </activity>
+        <activity android:name=".BarCodeScanner" android:screenOrientation="portrait"></activity>
 
     </application>
 
