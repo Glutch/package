@@ -98,7 +98,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         city = findViewById(R.id.city);
         city.setText(order.postalTown);
         weight = findViewById(R.id.weight);
-        weight.setText("" + order.weight);
+        weight.setText("" + ((float)order.weight/1000) + " Kg");
         price = findViewById(R.id.price);
         price.setText("" + order.price);
         deliverydate = findViewById(R.id.deliverydate);
