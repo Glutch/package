@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.apackage.app.apackage.database.DBHelper;
 import com.apackage.app.apackage.database.Order;
+import com.apackage.app.apackage.helpClasses.RandFakeOrder;
 import com.apackage.app.apackage.settings.SettingsActivity;
 
 /**
@@ -43,7 +44,6 @@ public class ViewOrders extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
         dbHelper = new DBHelper(this);
-        //dbHelper.resetTheMF();
 
         orderAdapter = new OrderAdapter(this, dbHelper.getOrdersDelivered(0));
         listView.setAdapter(orderAdapter);

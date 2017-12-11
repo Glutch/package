@@ -111,8 +111,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
         deliveredBtn = findViewById(R.id.button2);
         if (order.delivered) {
             deliveredBtn.setVisibility(View.GONE);
-        }else
-            mapFragment.getView().setVisibility(View.GONE);
+        }
 
     }
 
@@ -121,8 +120,10 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
      * @param view
      */
     public void onClickDelivered(View view) {
-        order.latLng = latLng;
-        dbHelper.setLatLang(order);
+        if (latLng != null) {
+            order.latLng = latLng;
+            dbHelper.setLatLang(order);
+        }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
