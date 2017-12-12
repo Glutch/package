@@ -295,8 +295,7 @@ public class ViewSpecificOrder extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onLocationChanged(Location location) {
 
-        //place marker at current position
-        //mGoogleMap.clear();
+
         if (currLocationMarker != null) {
             currLocationMarker.remove();
         }
